@@ -23,6 +23,3 @@ class TestFizzBuzz(unittest.TestCase):
     def test_input_450_should_get_fizz_buzz(self):
         result = fizzbuzz(450)
         self.assertEqual(result, 'FizzBuzz')
-
-
-unittest.main()

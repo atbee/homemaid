@@ -21,6 +21,3 @@ class TestPrintRandomNumber(unittest.TestCase):
         mock.return_value = 5
         result = print_random_number()
         self.assertEqual(result, 'five')
-
-
-unittest.main()
