@@ -1,4 +1,4 @@
-FROM python:3.8.4-slim
+FROM python:3.8.4
 
 RUN pip install asgiref==3.2.10 \
     Django==3.0.8 \
@@ -16,7 +16,8 @@ RUN pip install asgiref==3.2.10 \
     pytest-django==3.9.0 \
     six==1.15.0 \
     wcwidth==0.2.5 \
-    zipp==3.1.0 
+    zipp==3.1.0 \
+    uWSGI==2.0.19.1
 
 RUN mkdir /app/
 COPY . /app/
@@ -26,4 +27,4 @@ RUN pip install -r requirements/local.txt
 WORKDIR /app/homemaid/
 RUN python manage.py migrate
 
-CMD ["python", "manage.py", "runserver"]
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
