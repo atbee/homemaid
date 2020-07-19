@@ -35,3 +35,11 @@ class MaidAddView(View):
             'form': form
         }
         return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = MaidForm(request.POST)
+        if form.is_valid():
+            form.save()
+        print(form.errors)
+
+        return HttpResponse()

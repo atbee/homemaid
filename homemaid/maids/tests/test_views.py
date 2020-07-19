@@ -73,8 +73,25 @@ class TestMaidAddView(TestCase):
 
     def test_view_should_have_maid_form(self):
         response = self.client.get(reverse('maid-add'))
-        print(str(response.content))
-        
-        assert '<form action="." method="POST">' in str(response.content)
-        assert '<input type="text" name="name" maxlength="300" required id="id_name">' in str(response.content)
-        assert '<button class="btn btn-primary" type="submit">submit</button>' in str(response.content)
+
+        csrf_field = '<input type="hidden" name="csrfmiddlewaretoken"'
+        assert csrf_field in str(response.content)
+
+        form_field = '<form action="." method="POST">'
+        assert form_field in str(response.content)
+
+        name_field = '<input type="text" name="name" maxlength="300" required id="id_name">'
+        assert name_field in str(response.content)
+
+        submit_field = '<button class="btn btn-primary" type="submit">submit</button>'
+        assert submit_field in str(response.content)
+
+    def test_submit_form_should_save_new_maid(self):
+        data = {
+            'name': 'Atb',
+        }
+        self.client.post(reverse('maid-add'), data=data)
+
+        maid = Maid.objects.last()
+
+        assert maid.name == 'Atb'
