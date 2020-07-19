@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
@@ -41,5 +42,13 @@ class MaidAddView(View):
         if form.is_valid():
             form.save()
         print(form.errors)
+
+        send_mail(
+            'Subject here',
+            'Here is the message.',
+            'from@example.com',
+            ['to@example.com'],
+            fail_silently=False,
+        )
 
         return HttpResponse()
